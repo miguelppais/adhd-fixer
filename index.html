@@ -137,7 +137,7 @@
 
         <!-- Custom Mock Progress Bar -->
         <div class="w-4/5 bg-slate-900 border border-slate-800 rounded-full h-4 overflow-hidden p-0.5">
-            <div id="progress-bar" class="bg-gradient-to-r from-brand-purple to-brand-pink h-full rounded-full transition-all duration-[3000ms] ease-out w-0"></div>
+            <div id="progress-bar" class="bg-gradient-to-r from-brand-purple to-brand-pink h-full rounded-full transition-all duration-[7200ms] ease-out w-0"></div>
         </div>
     </div>
 
@@ -199,12 +199,28 @@
 
         // Funny ADHD themed progress subtexts
         const dynamicSubtexts = [
-            "Calming down the mental hamsters...",
-            "Deleting 147 abandoned browser tabs...",
-            "Locking phone into a timed safe...",
-            "Sweeping away shiny thoughts...",
-            "Searching for the lost dopamine key...",
-            "Attempting to read instructions completely..."
+            "Acquiring dopamine...",
+            "Deleting 247 abandoned browser tabs...",
+            "Screaming tasks louder...",
+            "Sweeping away extra thoughts...",
+            "Finding all squirrels...",
+            "Attempting to read instructions...",
+            "Looking for the keys...",
+            "Putting phone in the refrigerator...",
+            "Buying an organizer...",
+            "Regulating emotions...",
+            "Taking medication...",
+            "Just focusing...",
+            "Writing reminders...",
+            "Ignoring the laundry basket...",
+            "Resisting the urge to research...",
+            "Starting another hobbie...",
+            "Locating train of thought...",
+            "Trying to remember what I'm doing...",
+            "Silencing the voices...",
+            "Forgetting to eat...",
+            "Avoiding hard tasks...",
+            "Adding stuff to calendar..."
         ];
 
         // 40 Custom funny diagnostic failure causes showing that the app team also has ADHD
@@ -218,7 +234,7 @@
             "Our developer's dopamine receptors got distracted by a Wikipedia article about medieval siege weapons.",
             "The alignment process was interrupted because we suddenly felt an overwhelming urge to learn origami.",
             "We suddenly remembered a minor awkward interaction we had back in 2017.",
-            "A bird flew past our window and we spent the last hour trying to identify its species.",
+            "A bird flew past our window.",
             "We got hyperfocused on customizing the gradient glow of the buttons instead of fixing the code.",
             "A sudden, irresistible urge to start a tech podcast derailed our entire development workflow.",
             "We couldn't bypass the background mental loop of that one song we heard 3 days ago.",
@@ -243,7 +259,7 @@
             "We opened our IDE but got completely obsessed with finding the absolute perfect color theme.",
             "We decided to learn a completely new framework for this update, got overwhelmed, and took a nap.",
             "We went to grab a glass of water, got distracted by the laundry, and left the code running on loop.",
-            "We spent half the day trying to find the ultimate Lo-Fi study playlist instead of doing the actual study.",
+            "We spent half the day trying to find a study playlist instead of doing the actual study.",
             "We spent two hours researching the optimal diet for a pet capybara we do not own.",
             "We got stuck in a 90s cartoon theme song loop and spent 3 hours tracking down the original composers.",
             "We got super hyperfocused on finding out if medieval knights could actually swim in armor.",
@@ -274,8 +290,14 @@
                 // Reset Loading Screen Elements
                 loadingScreen.classList.add('hidden');
                 progressBar.style.width = '0%';
-                loadingSubtext.innerText = dynamicSubtexts[0];
+                loadingSubtext.innerText = "Calming down the hamsters inside the wheel...";
             }, 300);
+        }
+
+        // Utility to pick 'count' unique random items from the array
+        function getRandomSubtexts(count) {
+            const shuffled = [...dynamicSubtexts].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
         }
 
         // Trigger the magical ADHD correction sequence
@@ -288,32 +310,37 @@
                 
                 // Show Loading Screen
                 loadingScreen.classList.remove('hidden');
+                
+                // Get 4 random messages to show during this specific run
+                const activeSubtexts = getRandomSubtexts(4);
+                loadingSubtext.innerText = activeSubtexts[0];
+
                 setTimeout(() => {
                     loadingScreen.classList.remove('opacity-0', 'scale-95');
                     loadingScreen.classList.add('opacity-100', 'scale-100');
                     
-                    // Trigger Simulated Progress Bar
+                    // Trigger Simulated Progress Bar to fill slowly over 7.2 seconds
                     progressBar.style.width = '100%';
                 }, 50);
 
-                // Cycle funny status messages
+                // Cycle the 4 random messages over a slower interval
                 let step = 1;
                 subtextInterval = setInterval(() => {
-                    if (step < dynamicSubtexts.length) {
+                    if (step < activeSubtexts.length) {
                         // Subtle transition fade out/in for subtexts
                         loadingSubtext.style.opacity = '0';
                         loadingSubtext.style.transform = 'translateY(5px)';
                         
                         setTimeout(() => {
-                            loadingSubtext.innerText = dynamicSubtexts[step];
+                            loadingSubtext.innerText = activeSubtexts[step];
                             loadingSubtext.style.opacity = '1';
                             loadingSubtext.style.transform = 'translateY(0)';
                             step++;
                         }, 150);
                     }
-                }, 800);
+                }, 1800); // 1.8 seconds per step
 
-                // Wait 4.5 seconds to complete the "Fix"
+                // Wait 7.2 seconds total to complete the slower "Fix"
                 setTimeout(() => {
                     clearInterval(subtextInterval);
                     
@@ -339,7 +366,7 @@
 
                     }, 400);
 
-                }, 4500);
+                }, 7200);
 
             }, 400);
         });
